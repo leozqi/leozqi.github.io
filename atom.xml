@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<?xml-stylesheet href="/feed.xsl" type="text/xsl"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>leozqi.com</title>
+  <link href="https://leozqi.com/index.xml" rel="self"/>
+  <link href="https://leozqi.com/"/>
+  
+    <updated>2022-07-15T11:06:58-04:00</updated>
+  
+  <id>https://leozqi.com/</id>
+  <author>
+    <name>Leo Qi</name>
+    <email>leo@leozqi.com</email>
+  </author>
+  <generator>Hugo -- gohugo.io</generator>
+  <entry>
+    <title type="html"><![CDATA[Hugo Atom feeds with XSLT]]></title>
+    <link href="https://leozqi.com/hugo-atom-feeds-with-xslt/"/>
+    <id>https://leozqi.com/hugo-atom-feeds-with-xslt/</id>
+    <author>
+      <name>Leo Qi</name>
+    </author>
+    <published>2022-07-15T11:06:58-04:00</published>
+    <updated>2022-07-15T11:06:58-04:00</updated>
+    
+    <content type="html"><![CDATA[Creating friendlier Atom and RSS feeds.]]></content>
+    
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[Personal man pages]]></title>
+    <link href="https://leozqi.com/personal-man-pages/"/>
+    <id>https://leozqi.com/personal-man-pages/</id>
+    <author>
+      <name>Leo Qi</name>
+    </author>
+    <published>2022-04-30T13:38:18-04:00</published>
+    <updated>2022-04-30T13:38:18-04:00</updated>
+    
+    <content type="html"><![CDATA[Personal reference man pages that work with the macOS touchbar.]]></content>
+    
+  </entry>
+</feed>

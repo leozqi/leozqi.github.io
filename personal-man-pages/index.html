@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="leozqi.com">
+    <link rel="shortcut icon" href="https://leozqi.com/favicon.svg">
+    
+    <link rel="stylesheet" href="/css/style.min.css">
+
+    <script defer src="/js/katex.min.js"></script>
+        <script defer src="/js/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    <title>Personal man pages</title>
+</head>
+<body><header id="banner">
+    <h2><a href="https://leozqi.com">leozqi.com</a></h2>
+    <nav>
+        <ul>
+            <li>
+                <a href="/atom.xml" title="atom feed">atom feed</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main id="content">
+<article>
+    <header id="post-header">
+        <h1>Personal man pages</h1>
+        <div>
+                <time>April 30, 2022</time>
+            </div>
+    </header><aside id="toc">
+    <h4>Table of Contents</h4>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-setup">The setup</a></li>
+    <li><a href="#on-macos-with-the-touch-bar">On macOS with the Touch Bar</a></li>
+  </ul>
+</nav>
+</aside>
+
+<p>Recently, a Hacker News post was created about <a href="https://github.com/sinclairtarget/um">&ldquo;Um,&rdquo;</a> a tool to create your own <a href="https://en.wikipedia.org/wiki/Man_page">man pages</a>. One <a href="https://news.ycombinator.com/item?id=17801394">comment</a> by @pjungwir was interesting:</p>
+<blockquote>
+<p>. . . If you don&rsquo;t want to install anything new, you can also write your own man pages with a personal &ldquo;man section&rdquo;. Just do something like this in your shell:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">MANPATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$MANPATH</span><span class="s2">:</span><span class="nv">$HOME</span><span class="s2">/man&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">MANSECT</span><span class="o">=</span><span class="s2">&#34;1:n:l:8:3:2:3posix:3pm:3perl:5:4:9:6:7:pj&#34;</span>
+</span></span></code></pre></div><p>Here I&rsquo;ve added the &ldquo;pj&rdquo; section (my initials).</p>
+<p>Then I have files like ~/man/manpj/postgres.pj or ~/man/manpj/ssl.pj. I can say <code>man pj postgres</code> to see my own notes. My own collection goes back to 2001 or so. I feel lucky that early on I started putting notes into something so portable. It&rsquo;s one of the few things that has always moved with me to new machines. It is here: <a href="https://github.com/pjungwir/manpj/">https://github.com/pjungwir/manpj/</a></p>
+</blockquote>
+<p>Notes stored in this way would be easily accessible, searchable as plain text, and in one syncable directory. Smart, and useful! For Markdown writers like me, I found that a <code>pandoc</code> and Makefile setup could convert all my Markdown notes into the man page format, taking inspiration and code from <a href="https://eddieantonio.ca/blog/2015/12/18/authoring-manpages-in-markdown-with-pandoc">this post</a> by Eddie Antonio Santos.</p>
+<h2 id="the-setup">The setup</h2>
+<p>For <code>man</code> to find my custom man pages, I opted to use the &ldquo;0&rdquo; section (not used by any shipped documentation) and to store any created man pages in the <code>~/man</code> directory. To that end, I added the below into my <code>~/.bashrc</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># enable custom man pages</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">MANPATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$MANPATH</span><span class="s2">:</span><span class="nv">$HOME</span><span class="s2">/man&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">MANSECT</span><span class="o">=</span><span class="s2">&#34;1:n:l:8:3:2:3posix:3pm:3perl:5:4:9:6:7:0&#34;</span>
+</span></span></code></pre></div><p>I then created the following tree:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">man/
+</span></span><span class="line"><span class="cl">├── Makefile
+</span></span><span class="line"><span class="cl">├── man0/
+</span></span><span class="line"><span class="cl">├── markdown/
+</span></span><span class="line"><span class="cl">└── README.md
+</span></span></code></pre></div><p>In this setup, <code>man0/</code> stores generated man pages while <code>markdown/</code> stores source notes. The final step was to create a Makefile for easy converting, provided the <code>pandoc</code> binary was installed and callable.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">PANDOC</span> <span class="o">?=</span> pandoc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Modify to reference man pages from section other than zero
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">MANSECTION</span> <span class="o">?=</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Source and output directories
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">SRC</span> <span class="o">:=</span> markdown
+</span></span><span class="line"><span class="cl"><span class="nv">OUT</span> <span class="o">:=</span> man<span class="k">$(</span>MANSECTION<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Find all source markdown files to convert
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">TARGETS</span> <span class="o">:=</span> <span class="k">$(</span>wildcard <span class="k">$(</span>SRC<span class="k">)</span>/*.md<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Generate file paths of files after conversion
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">OBJECTS</span> <span class="o">:=</span> <span class="k">$(</span>patsubst %.md,%.<span class="k">$(</span>MANSECTION<span class="k">)</span>,<span class="k">$(</span>subst <span class="k">$(</span>SRC<span class="k">)</span>,<span class="k">$(</span>OUT<span class="k">)</span>,<span class="k">$(</span>TARGETS<span class="k">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Define man page conversion commands
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nv">MANPAGE.md</span> <span class="o">=</span> <span class="k">$(</span>PANDOC<span class="k">)</span> --standalone <span class="k">$(</span>PANDOCFLAGS<span class="k">)</span> --to man
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">$(OUT)/%.$(MANSECTION)</span><span class="o">:</span> <span class="k">$(</span><span class="nv">SRC</span><span class="k">)</span>/%.<span class="n">md</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>MANPAGE.md<span class="k">)</span> $&lt; -o <span class="nv">$@</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Default make target: convert all markdown files
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">all</span>
+</span></span><span class="line"><span class="cl"><span class="nf">all</span><span class="o">:</span> <span class="k">$(</span><span class="nv">OBJECTS</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Delete generated man pages in output directory
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">clean</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	rm <span class="k">$(</span>OUT<span class="k">)</span>/*.<span class="k">$(</span>MANSECTION<span class="k">)</span>
+</span></span></code></pre></div><p>GNU make and pandoc must be installed before the setup can run. For Debian/Ubuntu (you will probably need to run with <code>sudo</code>):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ apt update
+</span></span><span class="line"><span class="cl">$ apt install make <span class="c1"># or build-essential, other tools to build</span>
+</span></span><span class="line"><span class="cl">$ apt install pandoc <span class="o">&amp;&amp;</span> apt install groff
+</span></span></code></pre></div><p>After installing these necessary tools and using this directory structure and the corresponding Makefile, I could run <code>make all</code> to convert all Markdown files in the <code>~/man/markdown</code> directory into corresponding <code>roff man</code> pages stored in <code>man0</code>. These pages could then be displayed by the <code>man</code> pager: for example, <code>man 0 grep</code> would display any personal notes about <code>grep</code> stored in <code>~/man/markdown/grep.md</code>. Sweet!</p>
+<h2 id="on-macos-with-the-touch-bar">On macOS with the Touch Bar</h2>
+<p>This setup also works with macOS using some modifications. First, on macOS changes to <code>.bashrc</code> should instead be written in a created <code>.bash_profile</code> file. Secondly, the command line tools can be installed with a tool like <a href="https://brew.sh">Homebrew</a>.</p>
+<p>On many Macbooks, the default Terminal app (and <a href="https://iterm2.com/documentation-touch-bar.html">iTerm2</a>) allow users to lookup man pages quickly with a control on the Touch Bar. However, it does not use the environmental variables set in a previous step, as explained by an <a href="https://apple.stackexchange.com/a/416501">answer</a> on the Apple StackExchange by <a href="https://apple.stackexchange.com/users/32815/jaume">jaume</a></p>
+<blockquote>
+<p>. . . When you look for a man page by pressing the &ldquo;Open man Page for Selection&rdquo; option in the Touch Bar, a process like the following is executed:</p>
+<p><code>login -pfq &lt;username&gt; /usr/bin/man -P ul &lt;command&gt;</code></p>
+<p>where:</p>
+<ul>
+<li>username is your username</li>
+<li>command is the command whose man page you want to display</li>
+</ul>
+<p>login starts man directly, and it is not aware of the value of the MANPATH variable.</p>
+</blockquote>
+<p>The solution is to &ldquo;add a MANPATH entry to <code>/private/etc/man.conf</code>.&rdquo; For my setup, I had to:</p>
+<ul>
+<li>Add the line <code>MANPATH /Users/&lt;username&gt;/man</code> (or wherever the <code>man</code> directory is stored)</li>
+<li>Modify the line <code>MANSECT 1:1: . . .</code> to include <code>:0</code> at the end, like the exported variables in <code>.bash_profile</code>.</li>
+</ul>
+<p>Afterwards, any custom man pages created will be accessible with the man page Touch Bar control.</p>
+</article>
+
+        </main><footer id="footer">
+    © 2022 Leo Qi
+</footer>
+</body>
+</html>
