@@ -8,11 +8,17 @@
   <xsl:template match="/">
     <html xmlns="http://www.w3.org/1999/xhtml">
       <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-        <title>Web Feed • <xsl:value-of select="atom:feed/atom:title"/></title>
+        <meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+<meta name="description" content="leozqi.com"></meta>
+<link rel="shortcut icon" href="https://leozqi.com/favicon.svg"></link>
+<title>Leo Qi</title>
         
-        <link rel="stylesheet" type="text/css" href="/css/style.min.css" />
+<link rel="preload" as="style" href="/css/style.min.css" onload="this.onload=null;this.rel='stylesheet'"></link>
+<noscript>
+  <link rel="stylesheet" href="/css/style.min.css"></link>
+</noscript>
+
       </head>
       <body>
         <section>
@@ -36,10 +42,19 @@
 
   <xsl:template match="atom:feed">
     <header id="banner">
-      <h2>
-        <a href="https://leozqi.com"><xsl:value-of select="atom:title"/></a>
-      </h2>
-    </header>
+    <nav>
+        <h2><a href="https://leozqi.com">Leo Qi</a></h2>
+        <ul>
+            <li><a href="https://leozqi.com">home</a></li>
+            <li>
+                
+                <a href="/atom.xml" title="posts">posts</a>
+                
+            </li>
+        </ul>
+    </nav>
+</header>
+
   </xsl:template>
 
   <xsl:template match="atom:entry">

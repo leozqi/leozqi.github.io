@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html lang="en-US"><head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="leozqi.com">
-    <link rel="shortcut icon" href="https://leozqi.com/favicon.svg">
-    
-    <link rel="stylesheet" href="/css/style.min.css">
-
-    <script defer src="/js/katex.min.js"></script>
-        <script defer src="/js/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
-    <title>Hugo Atom feeds with XSLT</title>
+<html lang="en-US">
+  <head><meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+<meta name="description" content="leozqi.com"></meta>
+<link rel="shortcut icon" href="https://leozqi.com/favicon.svg"></link>
+<title>Hugo Atom feeds with XSLT</title>
+<link rel="preload" as="style" href="/css/style.min.css" onload="this.onload=null;this.rel='stylesheet'"></link>
+<noscript>
+  <link rel="stylesheet" href="/css/style.min.css"></link>
+</noscript>
+<script defer src="/js/katex.min.js"></script>
+  <script defer src="/js/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 </head>
-<body><header id="banner">
-    <h2><a href="https://leozqi.com">leozqi.com</a></h2>
+  <body><header id="banner">
     <nav>
+        <h2><a href="https://leozqi.com">Leo Qi</a></h2>
         <ul>
+            <li><a href="https://leozqi.com">home</a></li>
             <li>
-                <a href="/atom.xml" title="atom feed">atom feed</a>
+                
+                <a href="/atom.xml" title="posts">posts</a>
+                
             </li>
         </ul>
     </nav>
@@ -27,7 +31,14 @@
         <h1>Hugo Atom feeds with XSLT</h1>
         <div>
                 <time>July 15, 2022</time>
-            </div>
+            
+         - <em><a href = "/tags/hugo">hugo</a></em> 
+        
+         - <em><a href = "/tags/meta">meta</a></em> 
+        
+         - <em><a href = "/tags/web-feeds">web feeds</a></em> 
+        
+        </div>
     </header><aside id="toc">
     <h4>Table of Contents</h4>
     <nav id="TableOfContents">
@@ -192,7 +203,7 @@
 </span></span></code></pre></div><p>This will apply the templating to the XSLT template file before adding the link to it as a <a href="https://gohugo.io/content-management/urls/#permalinks">.RelPermalink</a>. Now, your site will have both an <code>/atom.xml</code> feed and styling applied by the browser whenever a user visits it.</p>
 </article>
 
-        </main><footer id="footer">
+    </main><footer id="footer">
     © 2022 Leo Qi
 </footer>
 </body>

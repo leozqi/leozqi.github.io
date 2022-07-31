@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Leo Qi</title>
-    <link>https://leozqi.com/tags/</link>
-    <description>Recent content in Tags on Leo Qi</description>
+    <title>web feeds on Leo Qi</title>
+    <link>https://leozqi.com/tags/web-feeds/</link>
+    <description>Recent content in web feeds on Leo Qi</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Fri, 15 Jul 2022 11:06:58 -0400</lastBuildDate>
     
-	<atom:link href="https://leozqi.com/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://leozqi.com/tags/web-feeds/index.xml" rel="self" type="application/rss+xml" />
     
     
     
