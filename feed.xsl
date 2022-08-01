@@ -14,10 +14,7 @@
 <link rel="shortcut icon" href="https://leozqi.com/favicon.svg"></link>
 <title>Leo Qi</title>
         
-<link rel="preload" as="style" href="/css/style.min.css" onload="this.onload=null;this.rel='stylesheet'"></link>
-<noscript>
-  <link rel="stylesheet" href="/css/style.min.css"></link>
-</noscript>
+<link rel="stylesheet" href="/css/style.min.css" onload="this.onload=null;this.rel='stylesheet'"></link>
 
       </head>
       <body>

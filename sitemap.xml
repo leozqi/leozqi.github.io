@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://leozqi.com/tags/blogging/</loc>
+    <lastmod>2022-07-15T11:06:58-04:00</lastmod>
+  </url><url>
     <loc>https://leozqi.com/tags/hugo/</loc>
     <lastmod>2022-07-15T11:06:58-04:00</lastmod>
   </url><url>
@@ -11,16 +14,10 @@
     <loc>https://leozqi.com/</loc>
     <lastmod>2022-07-15T11:06:58-04:00</lastmod>
   </url><url>
-    <loc>https://leozqi.com/tags/meta/</loc>
-    <lastmod>2022-07-15T11:06:58-04:00</lastmod>
-  </url><url>
     <loc>https://leozqi.com/posts/</loc>
     <lastmod>2022-07-15T11:06:58-04:00</lastmod>
   </url><url>
     <loc>https://leozqi.com/tags/</loc>
-    <lastmod>2022-07-15T11:06:58-04:00</lastmod>
-  </url><url>
-    <loc>https://leozqi.com/tags/web-feeds/</loc>
     <lastmod>2022-07-15T11:06:58-04:00</lastmod>
   </url><url>
     <loc>https://leozqi.com/tags/featured/</loc>
